@@ -381,31 +381,22 @@ A typical business holds many different assets called capital, including office 
     <form action="#" method="post" class="row" id="contact_form">
     <div class="input-field col-md-6">
     <i class="twi-user2"></i>
-    <input class="required" type="text" name="con_name" placeholder="Your Name">
+    <input class="required" id="name" type="text" name="Name" placeholder="Your Name">
     </div>
     <div class="input-field col-md-6">
     <i class="twi-envelope2"></i>
-    <input class="required" type="email" name="con_email" placeholder="Email Address">
-    </div>
-    <div class="input-field icRight col-md-12">
-    <select class="required" name="con_subject">
-    <option selected="selected">Select Subjects</option>
-    <option>Finance Consultant</option>
-    <option>Business Consultant</option>
-    <option>Financial Advices</option>
-    <option>Business Growth</option>
-    </select>
+    <input class="required" id="email" type="email" name="Email" placeholder="Email Address">
     </div>
     <div class="input-field col-md-12">
     <i class="twi-pen2"></i>
-    <textarea class="required" name="con_message" placeholder="Type Your Message"></textarea>
+    <textarea class="required" id="message" name="Message" placeholder="Type Your Message"></textarea>
     </div>
     <div class="input-field col-md-12">
-    <button type="submit" class="qu_btn">Submit Now</button>
     <div class="con_message"></div>
     </div>
     </form>
     </div>
+    <input type="submit" class="qu_btn" onclick="sendMsg()"></input>
     </div>
     <div class="col-md-4">
     <div class="chatNow">
@@ -492,6 +483,32 @@ A typical business holds many different assets called capital, including office 
 <script src="assets/js/extensions/revolution.extension.slideanims.min.js"></script>
 <script src="assets/js/extensions/revolution.extension.video.min.js"></script>
 <script src="assets/js/theme.js"></script>
+<script src="https://smtpjs.com/v3/smtp.js">
+</script>
+<script>
+    function sendMsg(e){
 
+       // e.preventDefault();        
+        const form =document.querySelector('#contact_form');
+
+        const name =document.querySelector('#name');
+        const email=document.querySelector('#email');
+        const msg =document.querySelector('#message');
+
+        
+        Email.send({
+            Host : "smtp.elasticemail.com",
+            Username :"imbaamelyoussef@gmail.com",
+            Password : "569A2779444F09F73AB75CC553231B7B7650",
+            To : "imbaamelyoussef@gmail.com",
+            From : email.value,
+            Subject : "From "+name.value+" ✉️",
+            Body : msg.value
+        }).then(
+        message => alert(message)
+        );
+        form.addEventListener('submit', sendMsg)
+    }
+</script>
 </body>
 </html>
